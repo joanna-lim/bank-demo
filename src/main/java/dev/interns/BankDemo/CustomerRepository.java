@@ -1,11 +1,8 @@
 package dev.interns.BankDemo;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-import java.io.ObjectInput;
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
-public interface CustomerRepository extends MongoRepository<Customer, ObjectId> {
-    Optional<Customer> findCustomerBySSN(String SSN);
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    Optional<Customer> findCustomerBySsn(String ssn);
 }

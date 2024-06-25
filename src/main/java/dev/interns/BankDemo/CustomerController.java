@@ -8,23 +8,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
+
+    private final CustomerService customerService;
+
     @Autowired
-    private CustomerService customerService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Customer>> getAllCustomers() {
-        return new ResponseEntity<List<Customer>>(customerService.allCustomers(), HttpStatus.OK);
+        List<Customer> customers = customerService.allCustomers();
+        return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    @GetMapping("/{SSN}")
-    public ResponseEntity<Optional<Customer>> getSingleCustomer(@PathVariable String SSN) {
-        return new ResponseEntity<Optional<Customer>>(customerService.singleCustomer(SSN), HttpStatus.OK);
+    @GetMapping("/{ssn}")
+    public ResponseEntity<Optional<Customer>> getSingleCustomer(@PathVariable String ssn) {
+        Optional<Customer> customer = customerService.singleCustomer(ssn);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 }
+

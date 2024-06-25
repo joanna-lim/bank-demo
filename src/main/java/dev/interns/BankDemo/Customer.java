@@ -1,22 +1,29 @@
 package dev.interns.BankDemo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "customers")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
+
     @Id
-    private ObjectId id;
-    private Integer customer_id;
-    private String first_name;
-    private String last_name;
-    private String SSN;
-    private String Citizenship;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Integer customerId;
+    private String name;
+    private Long phoneNumber;
+    private String address;
+    private String citizenship;
+    private String firstName;
+    private String lastName;
+    private String ssn;
 }
