@@ -1,5 +1,7 @@
-package dev.interns.BankDemo;
+package dev.interns.BankDemo.controller;
 
+import dev.interns.BankDemo.entity.Customer;
+import dev.interns.BankDemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

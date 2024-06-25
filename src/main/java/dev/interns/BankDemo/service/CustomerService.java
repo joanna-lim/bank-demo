@@ -1,5 +1,7 @@
-package dev.interns.BankDemo;
+package dev.interns.BankDemo.service;
 
+import dev.interns.BankDemo.entity.Customer;
+import dev.interns.BankDemo.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
+    // honestly not important - this function can be deleted
     public Optional<Customer> singleCustomer(String ssn) {
         return customerRepository.findCustomerBySsn(ssn);
     }
