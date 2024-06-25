@@ -30,18 +30,18 @@ const Navbar = () => {
               >
                 Transactions
               </Link>
-              <a
+              <Link
                 href="/cards"
                 class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
               >
                 Manage Cards
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/transfer"
                 class="text-gray-800 text-sm font-semibold hover:text-purple-600"
               >
                 Transfer Money
-              </a>
+              </Link>
             </div>
 
             <div class="flex items-center">
