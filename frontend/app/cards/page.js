@@ -9,8 +9,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import CardFront from "@/components/cardFront";
-import CardBack from "@/components/cardBack";
+import CardFront from "@/components/CardFront";
+import CardBack from "@/components/CardBack";
 
 const CardPage = () => {
   const [flipped, setFlipped] = useState(false);
