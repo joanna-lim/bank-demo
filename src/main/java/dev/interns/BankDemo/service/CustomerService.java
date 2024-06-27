@@ -22,6 +22,18 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
+    public Optional<Customer> getCustomerByUsername(String username) {
+        return customerRepository.findByUsername(username);
+    }
+
+    public Optional<Customer> login(String username, String password) {
+        Optional<Customer> customerOpt = customerRepository.findByUsername(username);
+        if (customerOpt.isPresent() && customerOpt.get().getPassword().equals(password)) {
+            return customerOpt;
+        }
+        return Optional.empty();
+    }
+
     // honestly not important - this function can be deleted
     public Optional<Customer> singleCustomer(String ssn) {
         return customerRepository.findCustomerBySsn(ssn);
