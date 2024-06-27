@@ -47,7 +47,11 @@ const SignIn = () => {
     })
     .then((data) => {
         localStorage.setItem('userid', data.customerId);
-        router.push(`/account`)
+        router.push(`/account`);
+        router.refresh();
+    })
+    .catch((error) => {
+        alert('Invalid username or password');
     });
   }
   return (

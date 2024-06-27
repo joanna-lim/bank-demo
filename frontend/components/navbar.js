@@ -14,14 +14,12 @@ const Navbar = () => {
   const logout = () => {
     localStorage.removeItem('userid');
     setUserid('');
-
+    router.push('/signin');
   }
 
   useEffect(() => {
     setUserid(localStorage.getItem('userid'));
-    router.push('/signin');
-
-  })
+  },[localStorage.getItem('userid')])
 
   return (
     <div className="bg-gray-100 font-sans w-full m-0">
@@ -67,7 +65,7 @@ const Navbar = () => {
 
             <div className="flex items-center">
               {
-                userid ? (
+                localStorage.getItem('userid') ? (
                   <Button
                     variant="ghost"
                     onClick={logout}
