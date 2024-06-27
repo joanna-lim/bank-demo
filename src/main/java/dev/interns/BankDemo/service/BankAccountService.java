@@ -40,6 +40,10 @@ public class BankAccountService {
         return bankAccountRepository.findAll();
     }
 
+    public List<BankAccount> getBankAccountsByCustomerId(Long customerId) {
+        return bankAccountRepository.findByCustomerId(customerId);
+    }
+
     public Optional<BankAccount> addBalance(Long bankAccNum, Double amount) {
         Optional<BankAccount> bankAccountOpt = bankAccountRepository.findByBankAccNum(bankAccNum);
         if (bankAccountOpt.isPresent()) {

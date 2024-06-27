@@ -37,6 +37,12 @@ public class BankAccountController {
         return new ResponseEntity<>(bankAccounts, HttpStatus.OK);
     }
 
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<BankAccount>> getCustomerBankAccounts(@PathVariable Long customerId) {
+        List<BankAccount> bankAccounts = bankAccountService.getBankAccountsByCustomerId(customerId);
+        return new ResponseEntity<>(bankAccounts, HttpStatus.OK);
+    }
+
     @PutMapping("/addBalance")
     public ResponseEntity<Optional<BankAccount>> addBalance(@RequestParam Long bankAccNum, @RequestParam Double amount) {
         Optional<BankAccount> bankAccount = bankAccountService.addBalance(bankAccNum, amount);
