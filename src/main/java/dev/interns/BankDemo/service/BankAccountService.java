@@ -1,27 +1,47 @@
 package dev.interns.BankDemo.service;
 
-import dev.interns.BankDemo.entity.BankAccount;
-import dev.interns.BankDemo.repository.BankAccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import dev.interns.BankDemo.entity.BankAccount;
+import dev.interns.BankDemo.repository.BankAccountRepository;
 
 @Service
 public class BankAccountService {
 
     private final BankAccountRepository bankAccountRepository;
+    private final RestTemplate restTemplate;
 
     @Autowired
     public BankAccountService(BankAccountRepository bankAccountRepository) {
         this.bankAccountRepository = bankAccountRepository;
+        this.restTemplate = new RestTemplate();
+    }
+
+    public BankAccount createNewAccount(Long customerId) {
+        BankAccount account = new BankAccount();
+        account.setCustomerId(customerId);
+        account.setBankAccNum(generateAccountNumber());
+        account.setBalance(0.0);
+        return bankAccountRepository.save(account);
     }
 
     public BankAccount createBankAccount(Long bankAccNum, Double balance, Long customerId) {
         BankAccount bankAccount = new BankAccount(bankAccNum, balance, customerId);
         return bankAccountRepository.save(bankAccount);
+    }
+
+    public Optional<BankAccount> getAccountDetails(Long accountId) {
+        return bankAccountRepository.findById(accountId);
+    }
+
+    public List<BankAccount> getCustomerAccounts(Long customerId) {
+        return bankAccountRepository.findByCustomerId(customerId);
     }
 
     public BankAccount createBankAccount(Double balance, Long customerId) {
@@ -68,5 +88,23 @@ public class BankAccountService {
             }
         }
         return Optional.empty();
+    }
+
+    private Long generateAccountNumber() {
+        // To implement account number generation if needed
+        return System.currentTimeMillis(); 
+    }
+
+
+    // Example method to interact with Supabase directly
+    public BankAccount saveToSupabase(BankAccount account) {
+        // Implement HTTP POST request to Supabase
+        // Example:
+        // HttpHeaders headers = new HttpHeaders();
+        // headers.set("apiKey", API_KEY);
+        // HttpEntity<BankAccount> request = new HttpEntity<>(account, headers);
+        // ResponseEntity<BankAccount> response = restTemplate.postForEntity(SUPABASE_URL + BANK_ACCOUNTS_ENDPOINT, request, BankAccount.class);
+        // return response.getBody();
+        return account;
     }
 }
