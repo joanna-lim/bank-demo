@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Transactions = () => {
-  const [fromBankAccNum, setFromBankAccNum] = useState('');
+  const [fromBankAccNum, setFromBankAccNum] = useState("");
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,10 +13,10 @@ const Transactions = () => {
     setLoading(true);
     setError(null);
 
-    fetch(`http://localhost:8080/api/v1/transactions/from/${fromBankAccNum}`)
+    fetch(`http://localhost:8080/api/v1/transactions/account/${fromBankAccNum}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return response.json();
       })
@@ -30,11 +30,18 @@ const Transactions = () => {
       });
   };
 
+  const formatDate = (datetime) => {
+    const date = new Date(datetime);
+    return date.toLocaleDateString("en-CA"); // 'en-CA' gives you the YYYY-MM-DD format
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-semibold mb-4">Transaction History</h1>
       <form onSubmit={handleSearch} className="mb-4">
-        <label className="block text-gray-700 mb-2">From Bank Account Number</label>
+        <label className="block text-gray-700 mb-2">
+          Enter Bank Account Number
+        </label>
         <input
           type="text"
           value={fromBankAccNum}
@@ -57,18 +64,35 @@ const Transactions = () => {
           <table className="min-w-full bg-white">
             <thead>
               <tr>
-                <th className="py-2 px-4 bg-gray-100">Date</th>
-                <th className="py-2 px-4 bg-gray-100">Description</th>
-                <th className="py-2 px-4 bg-gray-100">Amount</th>
+                <th className="py-2 px-4 text-left bg-gray-100">Date</th>
+                <th className="py-2 px-4 text-left bg-gray-100">
+                  Bank Account
+                </th>
+                <th className="py-2 px-4 text-left bg-gray-100">Amount</th>
               </tr>
             </thead>
             <tbody>
               {transactions.map((transaction) => (
-                <tr key={transaction.id} className="border-b">
-                  <td className="py-2 px-4">{transaction.datetime}</td>
-                  <td className="py-2 px-4">{transaction.toBankAccNum}</td>
-                  <td className={`py-2 px-4 ${transaction.amount > 0 ? 'text-red-500' : 'text-green-500'}`}>
-                    {transaction.amount < 0 ? '+' : '-'}${Math.abs(transaction.amount).toFixed(2)}
+                <tr key={transaction.transactionId} className="border-b">
+                  <td className="py-2 px-4 text-left">
+                    {formatDate(transaction.datetime)}
+                  </td>
+                  <td className="py-2 px-4 text-left">
+                  {transaction.fromBankAccNum.toString() === fromBankAccNum
+                      ? "To: " + transaction.toBankAccNum
+                      : "From: " + transaction.fromBankAccNum}
+                  </td>
+                  <td
+                    className={`py-2 px-4 text-left ${
+                      transaction.fromBankAccNum.toString() === fromBankAccNum
+                        ? "text-red-500"
+                        : "text-green-500"
+                    }`}
+                  >
+                    {transaction.fromBankAccNum.toString() === fromBankAccNum
+                      ? "-"
+                      : "+"}
+                    ${Math.abs(transaction.amount).toFixed(2)}
                   </td>
                 </tr>
               ))}
