@@ -15,22 +15,28 @@ import { useEffect, useState } from "react";
 const Account = () => {
   const [accounts, setAccounts] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [userid, setUserid] = useState('');
 
   useEffect(() => {
+    setUserid(localStorage.getItem('userid'));
+    console.log(localStorage.getItem('userid'));
     const getAccounts = () => {
-      fetch("http://localhost:8080/api/v1/bankaccounts/customer/1")
+      fetch(`http://localhost:8080/api/v1/bankaccounts/customer/${localStorage.getItem('userid')}`)
         .then((res) => res.json())
         .then((data) => {
           setAccounts(data);
           setLoading(false);
         });
     };
-    getAccounts();
+    if (localStorage.getItem('userid')) {
+      getAccounts();
+    }
   }, []);
 
   return (
     <>
-      <div className="flex-col flex justify-content-center items-center ">
+    {userid ?
+      (<div className="flex-col flex justify-content-center items-center ">
         <div className="flex-1 w-full justify-content-center items-center space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Overview</h2>
@@ -41,12 +47,12 @@ const Account = () => {
 
           <div className="space-y-4 ">
             <div className="grid gap-4 grid-cols-2">
-              {accounts.map((account) => (
+              {accounts?.map((account) => (
                 <Card key={account.bankAccNum}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
+                    <CardTitle className="text-lg font-medium">
                       Account Number:{" "}
-                      <span className="text-strong">{account.bankAccNum}</span>
+                      <span className="font-bold">{account.bankAccNum}</span>
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +70,7 @@ const Account = () => {
                   <CardContent>
                     <div className="text-2xl font-bold">${account.balance}</div>
                     <p className="text-xs text-muted-foreground">
-                      +20.1% from last month
+                      +5.1% from last month
                     </p>
                   </CardContent>
                 </Card>
@@ -82,7 +88,12 @@ const Account = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>) :
+      (<div className="flex justify-content-center items-center text-center">
+        <p className="justify-content-center items-center"> Please log in to view your account</p> 
+      </div>)
+    
+    }
     </>
   );
 };

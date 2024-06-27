@@ -1,20 +1,41 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Image from 'next/image';
-import Link from 'next/link'
+import Link from 'next/link';
+import { Button } from "@/components/ui/button";
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
+  const router = useRouter();
+
+  const [userid, setUserid] = useState('');
+
+  const logout = () => {
+    localStorage.removeItem('userid');
+    setUserid('');
+
+  }
+
+  useEffect(() => {
+    setUserid(localStorage.getItem('userid'));
+    router.push('/signin');
+
+  })
+
   return (
     <div className="bg-gray-100 font-sans w-full m-0">
       <div className="bg-white shadow">
         <div className="mx-auto px-4">
           <div className="flex items-center justify-between py-4">
             <Link href="/account">
-            <Image
+            {/* <Image
               src="/citi_logo.png"
               width={70}
               height={70}
               alt="Citi Logo"
-            />
+            /> */}
+            <p>team name</p>
             </Link>
 
             <div className="flex items-center">
@@ -45,18 +66,24 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center">
-              <a
-                href="#"
-                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
-              >
-                Sign in
-              </a>
-              <a
-                href="#"
-                className="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600"
-              >
-                Sign up
-              </a>
+              {
+                userid ? (
+                  <Button
+                    variant="ghost"
+                    onClick={logout}
+                    className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <Link
+                    href="/signin"
+                    className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
+                  >
+                    Sign in
+                  </Link>
+                )
+              }
             </div>
           </div>
         </div>
