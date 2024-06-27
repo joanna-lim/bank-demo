@@ -4,6 +4,7 @@ import dev.interns.BankDemo.entity.Customer;
 import dev.interns.BankDemo.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,10 +13,12 @@ import java.util.Optional;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final BankAccountService bankAccountService;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, BankAccountService bankAccountService) {
         this.customerRepository = customerRepository;
+        this.bankAccountService = bankAccountService;
     }
 
     public List<Customer> allCustomers() {
@@ -34,8 +37,14 @@ public class CustomerService {
         return Optional.empty();
     }
 
+    @Transactional
     public Customer signUp(Customer customer) {
-        return customerRepository.save(customer);
+        Customer savedCustomer = customerRepository.save(customer);
+
+        // Create a bank account for the customer
+        bankAccountService.createBankAccount(0.0, savedCustomer.getId()); 
+
+        return savedCustomer;
     }
 
     // honestly not important - this function can be deleted

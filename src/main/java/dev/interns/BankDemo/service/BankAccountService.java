@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class BankAccountService {
@@ -21,6 +22,18 @@ public class BankAccountService {
     public BankAccount createBankAccount(Long bankAccNum, Double balance, Long customerId) {
         BankAccount bankAccount = new BankAccount(bankAccNum, balance, customerId);
         return bankAccountRepository.save(bankAccount);
+    }
+
+    public BankAccount createBankAccount(Double balance, Long customerId) {
+        Long bankAccNum = generateBankAccountNumber();
+        BankAccount bankAccount = createBankAccount(bankAccNum, balance, customerId);
+        return bankAccountRepository.save(bankAccount);
+    }
+
+    public static Long generateBankAccountNumber() {
+        Random random = new Random();
+        long bankAccNum = 1000000 + random.nextInt(9000000); 
+        return bankAccNum; 
     }
 
     public List<BankAccount> getAllBankAccounts() {
