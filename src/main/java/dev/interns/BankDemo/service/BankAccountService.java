@@ -23,21 +23,13 @@ public class BankAccountService {
         this.restTemplate = new RestTemplate();
     }
 
-    public BankAccount createNewAccount(Long customerId) {
-        BankAccount account = new BankAccount();
-        account.setCustomerId(customerId);
-        account.setBankAccNum(generateAccountNumber());
-        account.setBalance(0.0);
-        return bankAccountRepository.save(account);
-    }
-
     public BankAccount createBankAccount(Long bankAccNum, Double balance, Long customerId) {
         BankAccount bankAccount = new BankAccount(bankAccNum, balance, customerId);
         return bankAccountRepository.save(bankAccount);
     }
 
     public Optional<BankAccount> getAccountDetails(Long accountId) {
-        return bankAccountRepository.findById(accountId);
+        return bankAccountRepository.findByBankAccNum(accountId);
     }
 
     public List<BankAccount> getCustomerAccounts(Long customerId) {
@@ -46,7 +38,7 @@ public class BankAccountService {
 
     public BankAccount createBankAccount(Double balance, Long customerId) {
         Long bankAccNum = generateBankAccountNumber();
-        BankAccount bankAccount = createBankAccount(bankAccNum, balance, customerId);
+        BankAccount bankAccount = new BankAccount(bankAccNum, balance, customerId);
         return bankAccountRepository.save(bankAccount);
     }
 
@@ -89,12 +81,6 @@ public class BankAccountService {
         }
         return Optional.empty();
     }
-
-    private Long generateAccountNumber() {
-        // To implement account number generation if needed
-        return System.currentTimeMillis(); 
-    }
-
 
     // Example method to interact with Supabase directly
     public BankAccount saveToSupabase(BankAccount account) {
