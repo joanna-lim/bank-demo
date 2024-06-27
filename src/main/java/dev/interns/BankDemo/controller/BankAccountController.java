@@ -32,7 +32,6 @@ public class BankAccountController {
     @PostMapping
     public ResponseEntity<BankAccount> createBankAccount(@RequestBody BankAccount bankAccount) {
         BankAccount createdAccount = bankAccountService.createBankAccount(
-                bankAccount.getBankAccNum(),
                 bankAccount.getBalance(),
                 bankAccount.getCustomerId()
         );
@@ -44,12 +43,6 @@ public class BankAccountController {
         Optional<BankAccount> account = bankAccountService.getAccountDetails(accountId);
         return account.map(ResponseEntity::ok)
                       .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/customer/{customerId}")
-    public ResponseEntity<List<BankAccount>> getCustomerAccounts(@PathVariable Long customerId) {
-        List<BankAccount> accounts = bankAccountService.getCustomerAccounts(customerId);
-        return ResponseEntity.ok(accounts);
     }
 
     @GetMapping
