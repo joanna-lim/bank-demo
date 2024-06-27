@@ -27,22 +27,30 @@ public class CardService {
         return cardRepository.save(card);
     }
 
-    public Optional<Card> activateCard(Long cardId) {
+    // return true if successfully activate, false if fail
+    public boolean activateCard(Long cardId) {
         Optional<Card> cardOpt = cardRepository.findById(cardId);
-        cardOpt.ifPresent(card -> {
-            card.setActive(true);
-            cardRepository.save(card);
-        });
-        return cardOpt;
+
+        if(cardOpt.isPresent()) {
+            cardOpt.get().setActive(true);
+            cardRepository.save(cardOpt.get());
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public Optional<Card> blockCard(Long cardId) {
+    // return true if successfully block, false if fail
+    public boolean blockCard(Long cardId) {
         Optional<Card> cardOpt = cardRepository.findById(cardId);
-        cardOpt.ifPresent(card -> {
-            card.setActive(false);
-            cardRepository.save(card);
-        });
-        return cardOpt;
+
+        if(cardOpt.isPresent()) {
+            cardOpt.get().setActive(false);
+            cardRepository.save(cardOpt.get());
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // generate 16 random numbers for card numbers

@@ -24,16 +24,22 @@ public class CardController {
     }
 
     @PutMapping("/activate/{cardId}")
-    public ResponseEntity<Card> activateCard(@PathVariable Long cardId) {
-        Optional<Card> cardOpt = cardService.activateCard(cardId);
-        return cardOpt.map(card -> new ResponseEntity<>(card, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<String> activateCard(@PathVariable Long cardId) {
+        boolean success = cardService.activateCard(cardId);
+        if (success) {
+            return new ResponseEntity<>("Card activated successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Card not found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/block/{cardId}")
-    public ResponseEntity<Card> blockCard(@PathVariable Long cardId) {
-        Optional<Card> cardOpt = cardService.blockCard(cardId);
-        return cardOpt.map(card -> new ResponseEntity<>(card, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<String> blockCard(@PathVariable Long cardId) {
+        boolean success = cardService.blockCard(cardId);
+        if (success) {
+            return new ResponseEntity<>("Card blocked successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Card not found", HttpStatus.NOT_FOUND);
+        }
     }
 }
