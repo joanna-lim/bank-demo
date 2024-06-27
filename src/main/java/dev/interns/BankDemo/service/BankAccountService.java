@@ -27,10 +27,6 @@ public class BankAccountService {
         return bankAccountRepository.findByBankAccNum(accountId);
     }
 
-    public List<BankAccount> getCustomerAccounts(Long customerId) {
-        return bankAccountRepository.findByCustomerId(customerId);
-    }
-
     public BankAccount createBankAccount(Double balance, Long customerId) {
         Long bankAccNum = generateBankAccountNumber();
         BankAccount bankAccount = new BankAccount(bankAccNum, balance, customerId);
