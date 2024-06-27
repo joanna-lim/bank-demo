@@ -23,11 +23,6 @@ public class BankAccountService {
         this.restTemplate = new RestTemplate();
     }
 
-    public BankAccount createBankAccount(Long bankAccNum, Double balance, Long customerId) {
-        BankAccount bankAccount = new BankAccount(bankAccNum, balance, customerId);
-        return bankAccountRepository.save(bankAccount);
-    }
-
     public Optional<BankAccount> getAccountDetails(Long accountId) {
         return bankAccountRepository.findByBankAccNum(accountId);
     }
