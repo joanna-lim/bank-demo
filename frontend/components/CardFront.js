@@ -15,14 +15,14 @@ const CardFront = ({ cardNumber, name}) => {
         <Card className="w-[500px] bg-teal-100 border-2 border-black" >
             <CardHeader>
             <CardTitle className="flex justify-between text-3xl">
-                <p>Citibank</p>
+                <p>Our Bank</p>
                 <p>Global wallet</p>
             </CardTitle>
             </CardHeader>
-            <CardContent className="my-14 text-xl tracking-widest">
+            <CardContent className="my-14 text-xl tracking-[7px]">
             {cardNumber}
             </CardContent>
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex text-xl justify-between font-bold">
             <p>{name}</p>
             <p>Debit</p>
             </CardFooter>

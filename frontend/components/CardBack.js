@@ -19,11 +19,11 @@ const CardBack = ({ cvv, expiry }) => {
                 </div>
             </CardTitle>
             </CardHeader>
-            <CardContent className="flex my-12 text-xl tracking-widest justify-between">
+            <CardContent className="flex my-12 text-xl tracking-widest justify-between font-bold" >
                 <p>Exp: {expiry}</p>
-                <p>{cvv}</p>
+                <p>CVV {cvv}</p>
             </CardContent>
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex justify-between font-bold text-xl">
             <p>NETS</p>
             <p>Debit</p>
             </CardFooter>
