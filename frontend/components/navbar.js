@@ -4,10 +4,10 @@ import Link from 'next/link'
 
 const Navbar = () => {
   return (
-    <div class="bg-gray-100 font-sans w-full m-0">
-      <div class="bg-white shadow">
-        <div class="mx-auto px-4">
-          <div class="flex items-center justify-between py-4">
+    <div className="bg-gray-100 font-sans w-full m-0">
+      <div className="bg-white shadow">
+        <div className="mx-auto px-4">
+          <div className="flex items-center justify-between py-4">
             <Link href="/account">
             <Image
               src="/citi_logo.png"
@@ -17,43 +17,43 @@ const Navbar = () => {
             />
             </Link>
 
-            <div class="flex items-center">
+            <div className="flex items-center">
               <Link
                 href="/account"
-                class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
+                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
               >
                 My Account
               </Link>
               <Link
                 href="/transactions"
-                class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
+                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
               >
                 Transactions
               </Link>
               <Link
                 href="/cards"
-                class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
+                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
               >
                 Manage Cards
               </Link>
               <Link
                 href="/transfer"
-                class="text-gray-800 text-sm font-semibold hover:text-purple-600"
+                className="text-gray-800 text-sm font-semibold hover:text-purple-600"
               >
                 Transfer Money
               </Link>
             </div>
 
-            <div class="flex items-center">
+            <div className="flex items-center">
               <a
                 href="#"
-                class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
+                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
               >
                 Sign in
               </a>
               <a
                 href="#"
-                class="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600"
+                className="text-gray-800 text-sm font-semibold border px-4 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600"
               >
                 Sign up
               </a>
