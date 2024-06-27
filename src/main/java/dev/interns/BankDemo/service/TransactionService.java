@@ -26,10 +26,6 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public List<Transaction> getTransactionsByFromBankAccNum(Long fromBankAccNum) {
-        return transactionRepository.findByFromBankAccNum(fromBankAccNum);
-    }
-
     //TODO get transactions filtered by customerID (all accts linked to them)
 
 
@@ -57,5 +53,9 @@ public class TransactionService {
             return Optional.empty();
         }
         return Optional.empty();
+    }
+
+    public List<Transaction> getTransactionsByBankAccNum(Long bankAccNum) {
+        return transactionRepository.findByFromBankAccNumOrToBankAccNum(bankAccNum);
     }
 }
