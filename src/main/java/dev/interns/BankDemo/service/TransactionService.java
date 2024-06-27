@@ -26,7 +26,9 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    //TODO get transactions filtered by accNum (both sent and received)
+    public List<Transaction> getTransactionsByFromBankAccNum(Long fromBankAccNum) {
+        return transactionRepository.findByFromBankAccNum(fromBankAccNum);
+    }
 
     //TODO get transactions filtered by customerID (all accts linked to them)
 

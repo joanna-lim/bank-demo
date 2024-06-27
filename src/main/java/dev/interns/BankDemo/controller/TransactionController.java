@@ -37,4 +37,10 @@ public class TransactionController {
                 ? new ResponseEntity<>(transaction, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    @GetMapping("/from/{fromBankAccNum}")
+    public ResponseEntity<List<Transaction>> getTransactionsByFromBankAccNum(@PathVariable Long fromBankAccNum) {
+        List<Transaction> transactions = transactionService.getTransactionsByFromBankAccNum(fromBankAccNum);
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
+    }
 }
