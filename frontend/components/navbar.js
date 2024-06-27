@@ -65,7 +65,7 @@ const Navbar = () => {
 
             <div className="flex items-center">
               {
-                localStorage.getItem('userid') ? (
+                userid ? (
                   <Button
                     variant="ghost"
                     onClick={logout}
