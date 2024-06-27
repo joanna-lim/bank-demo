@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -38,15 +39,26 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
+
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Customer customer) {
-        Optional<Customer> customerOpt = customerService.login(customer.getUsername(), customer.getPassword());
-        
-        if (customerOpt.isPresent()) {
-            return ResponseEntity.ok("Login successful");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+    public ResponseEntity<Customer> login(@RequestParam String username, @RequestParam String password) {
+        try {
+            Optional<Customer> customerOpt = customerService.login(username, password);
+            
+            if (customerOpt.isPresent()) {
+                return ResponseEntity.ok(customerOpt.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<Customer> signUp(@RequestBody Customer customer) {
+        Customer createdCustomer = customerService.signUp(customer);
+        return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
     }
 }
 

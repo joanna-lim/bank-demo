@@ -34,6 +34,10 @@ public class CustomerService {
         return Optional.empty();
     }
 
+    public Customer signUp(Customer customer) {
+        return customerRepository.save(customer);
+    }
+
     // honestly not important - this function can be deleted
     public Optional<Customer> singleCustomer(String ssn) {
         return customerRepository.findCustomerBySsn(ssn);

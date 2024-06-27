@@ -8,4 +8,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Optional<Customer> findByUsername(String username);
     // Can remove this function
     Optional<Customer> findCustomerBySsn(String ssn);
+
+
 }
