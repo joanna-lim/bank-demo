@@ -1,24 +1,54 @@
 "use client";
 
-import React from 'react';
+import React, { useRef, useState } from "react";
 
 const Transfer = () => {
-  const recipientRef = React.useRef();
-  const amountRef = React.useRef();
-  const descriptionRef = React.useRef();
+  const recipientRef = useRef();
+  const amountRef = useRef();
+  const descriptionRef = useRef();
+  const [fromBankAccNum, setFromBankAccNum] = useState(""); // Add state for fromBankAccNum
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const handleTransfer = (e) => {
     e.preventDefault();
     const recipient = recipientRef.current.value;
-    const amount = amountRef.current.value;
+    const amount = parseFloat(amountRef.current.value);
     const description = descriptionRef.current.value;
 
-    // Clear form fields after transfer
-    recipientRef.current.value = '';
-    amountRef.current.value = '';
-    descriptionRef.current.value = '';
+    setError(null);
+    setSuccess(null);
 
-    console.log(`Transferred $${amount} to ${recipient} with description: ${description}`);
+    fetch(`http://localhost:8080/api/v1/transactions/transfer`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fromBankAccNum: fromBankAccNum,
+        toBankAccNum: recipient,
+        amount: amount,
+        description: description, // Include description if needed
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Clear form fields after transfer
+        recipientRef.current.value = "";
+        amountRef.current.value = "";
+        descriptionRef.current.value = "";
+
+        setSuccess(`Transferred $${amount} to ${recipient} successfully.`);
+      })
+      .catch((error) => {
+        setError("Failed to complete the transfer. Please try again.");
+        console.error("There was an error with the transfer:", error);
+      });
   };
 
   return (
@@ -26,11 +56,21 @@ const Transfer = () => {
       <h1 className="text-2xl font-semibold mb-4">Transfer to Other Accounts</h1>
       <form onSubmit={handleTransfer} className="max-w-md mx-auto bg-white p-8 shadow-md rounded-md">
         <div className="mb-4">
+          <label className="block text-gray-700">From Account</label>
+          <input
+            type="text"
+            value={fromBankAccNum}
+            onChange={(e) => setFromBankAccNum(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter your account number"
+            required
+          />
+        </div>
+        <div className="mb-4">
           <label className="block text-gray-700">Recipient Account</label>
           <input
             type="text"
             ref={recipientRef}
-            defaultValue="Enter in account number here"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter recipient account"
             required
@@ -41,7 +81,6 @@ const Transfer = () => {
           <input
             type="number"
             ref={amountRef}
-            defaultValue="100.00"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter amount"
             required
@@ -51,7 +90,6 @@ const Transfer = () => {
           <label className="block text-gray-700">Description</label>
           <textarea
             ref={descriptionRef}
-            defaultValue="Monthly subscription"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter description"
             rows="3"
@@ -64,6 +102,8 @@ const Transfer = () => {
           Transfer
         </button>
       </form>
+      {error && <div className="text-red-500 mt-4">{error}</div>}
+      {success && <div className="text-green-500 mt-4">{success}</div>}
     </div>
   );
 };
