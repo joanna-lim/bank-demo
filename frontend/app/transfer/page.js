@@ -19,17 +19,13 @@ const Transfer = () => {
     setError(null);
     setSuccess(null);
 
-    fetch(`http://localhost:8080/api/v1/transactions/transfer`, {
+    const params = new URLSearchParams();
+    params.append("fromBankAccNum", fromBankAccNum);
+    params.append("toBankAccNum", recipient);
+    params.append("amount", amount);
+
+    fetch(`http://localhost:8080/api/v1/transactions/transfer?${params.toString()}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fromBankAccNum: fromBankAccNum,
-        toBankAccNum: recipient,
-        amount: amount,
-        description: description, // Include description if needed
-      }),
     })
       .then((response) => {
         if (!response.ok) {
