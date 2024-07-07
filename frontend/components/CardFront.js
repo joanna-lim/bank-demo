@@ -15,7 +15,7 @@ const CardFront = ({ cardNumber, name}) => {
         <Card className="w-[500px] bg-teal-100 border-2 border-black" >
             <CardHeader>
             <CardTitle className="flex justify-between text-3xl">
-                <p>Our Bank</p>
+                <p>SG T1 Bank</p>
                 <p>Global wallet</p>
             </CardTitle>
             </CardHeader>

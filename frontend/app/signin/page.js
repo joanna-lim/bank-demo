@@ -47,6 +47,7 @@ const SignIn = () => {
     })
     .then((data) => {
         localStorage.setItem('userid', data.customerId);
+        localStorage.setItem('name', data.name);
         router.push(`/account`);
         router.refresh();
     })

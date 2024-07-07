@@ -49,7 +49,7 @@ const Transfer = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-semibold mb-4">Transfer to Other Accounts</h1>
+      <h1 className="text-3xl font-bold tracking-tight mt-4 mb-7">Transfer to Other Accounts</h1>
       <form onSubmit={handleTransfer} className="max-w-md mx-auto bg-white p-8 shadow-md rounded-md">
         <div className="mb-4">
           <label className="block text-gray-700">From Account</label>
@@ -98,8 +98,8 @@ const Transfer = () => {
           Transfer
         </button>
       </form>
-      {error && <div className="text-red-500 mt-4">{error}</div>}
-      {success && <div className="text-green-500 mt-4">{success}</div>}
+      {error && <div className="text-red-500 mt-4 justify-center items-center flex text-xl font-semibold">{error}</div>}
+      {success && <div className="text-green-500 mt-4 justify-center items-center flex text-xl font-semibold">{success}</div>}
     </div>
   );
 };

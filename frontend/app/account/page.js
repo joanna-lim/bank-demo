@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Overview } from "@/components/Overview";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Account = () => {
   const [accounts, setAccounts] = useState([]);
@@ -89,8 +90,11 @@ const Account = () => {
           </div>
         </div>
       </div>) :
-      (<div className="flex justify-content-center items-center text-center">
-        <p className="justify-content-center items-center"> Please log in to view your account</p> 
+      (<div className="flex flex-col justify-center items-center text-center mt-52">
+        <p className="text-4xl font-semibold"> Please sign in to view your account</p> 
+        <Button asChild className="mx-2 w-2/5 text-2xl p-8 mt-6" size="lg">
+          <Link href="/signin">Sign in</Link>
+        </Button>
       </div>)
     
     }

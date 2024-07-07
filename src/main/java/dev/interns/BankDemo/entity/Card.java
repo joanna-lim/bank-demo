@@ -26,13 +26,19 @@ public class Card {
     private Long bankAccNum;
 
     private Long customerId;
+
+    private Long cvv;
+
+    private String expiry;
     
 
-    public Card(boolean isActive, Long cardNumber, Long bankAccNum, Long customerId) {
+    public Card(boolean isActive, Long cardNumber, Long bankAccNum, Long customerId, Long cvv, String expiry) {
         this.isActive = isActive;
         this.cardNumber = cardNumber;
         this.bankAccNum = bankAccNum;
         this.customerId = customerId;
+        this.cvv = cvv;
+        this.expiry = expiry;
     }
 }
 

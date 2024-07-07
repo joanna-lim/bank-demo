@@ -37,7 +37,7 @@ const Transactions = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-semibold mb-4">Transaction History</h1>
+      <h1 className="text-3xl font-bold tracking-tight my-4">Transaction History</h1>
       <form onSubmit={handleSearch} className="mb-4">
         <label className="block text-gray-700 mb-2">
           Enter Bank Account Number
