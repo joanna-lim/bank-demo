@@ -22,7 +22,7 @@ const Account = () => {
     setUserid(localStorage.getItem('userid'));
     console.log(localStorage.getItem('userid'));
     const getAccounts = () => {
-      fetch(`http://localhost:8080/api/v1/bankaccounts/customer/${localStorage.getItem('userid')}`)
+      fetch(`http://localhost:8080/api/v1/bankaccounts/customer/${localStorage.getItem('userid')}`, { cache: 'no-store' })
         .then((res) => res.json())
         .then((data) => {
           setAccounts(data);

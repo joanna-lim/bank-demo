@@ -13,7 +13,7 @@ const Transactions = () => {
     setLoading(true);
     setError(null);
 
-    fetch(`http://localhost:8080/api/v1/transactions/account/${fromBankAccNum}`)
+    fetch(`http://localhost:8080/api/v1/transactions/account/${fromBankAccNum}`, { cache: 'no-store' })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
