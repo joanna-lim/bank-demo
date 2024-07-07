@@ -22,16 +22,17 @@ public class TransactionService {
         this.bankAccountService = bankAccountService;
     }
 
+    // Get all transactions from the database by calling the findAll method on transactionRepository
     public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
     }
 
     //TODO get transactions filtered by customerID (all accts linked to them)
 
-
+    // Performs a transfer between 2 accounts
     public Optional<Transaction> transferMoney(Long fromBankAccNum, Long toBankAccNum, Double amount) {
         try {
-            // try to remove balance from the sender's account
+            // Calls bankAccountService.removeBalance to deduct the specified amount from the sender's account, on success, return an Optional with sender's BankAccount
             Optional<BankAccount> fromAccountOpt = bankAccountService.removeBalance(fromBankAccNum, amount);
 
             if (fromAccountOpt.isPresent()) {
