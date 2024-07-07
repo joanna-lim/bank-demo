@@ -4,30 +4,6 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 
 const data = [
   {
-    name: "Jan",
-    total: Math.floor(Math.random() * 2000) + 200,
-  },
-  {
-    name: "Feb",
-    total: Math.floor(Math.random() * 2000) + 200,
-  },
-  {
-    name: "Mar",
-    total: Math.floor(Math.random() * 2000) + 200,
-  },
-  {
-    name: "Apr",
-    total: Math.floor(Math.random() * 2000) + 200,
-  },
-  {
-    name: "May",
-    total: Math.floor(Math.random() * 2000) + 200,
-  },
-  {
-    name: "Jun",
-    total: Math.floor(Math.random() * 2000) + 200,
-  },
-  {
     name: "Jul",
     total: Math.floor(Math.random() * 2000) + 200,
   },
@@ -51,6 +27,31 @@ const data = [
     name: "Dec",
     total: Math.floor(Math.random() * 2000) + 200,
   },
+  {
+    name: "Jan",
+    total: Math.floor(Math.random() * 2000) + 200,
+  },
+  {
+    name: "Feb",
+    total: Math.floor(Math.random() * 2000) + 200,
+  },
+  {
+    name: "Mar",
+    total: Math.floor(Math.random() * 2000) + 200,
+  },
+  {
+    name: "Apr",
+    total: Math.floor(Math.random() * 2000) + 200,
+  },
+  {
+    name: "May",
+    total: Math.floor(Math.random() * 2000) + 200,
+  },
+  {
+    name: "Jun",
+    total: Math.floor(Math.random() * 2000) + 200,
+  },
+  
 ]
 
 export function Overview() {
