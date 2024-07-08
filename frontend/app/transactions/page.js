@@ -3,6 +3,15 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Transactions = () => {
   const [fromBankAccNum, setFromBankAccNum] = useState("");
@@ -10,17 +19,29 @@ const Transactions = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [userid, setUserid] = useState('');
+  const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
     setUserid(localStorage.getItem('userid'));
+    const getAccounts = () => {
+      fetch(`http://localhost:8080/api/v1/bankaccounts/customer/${localStorage.getItem('userid')}`, { cache: 'no-store' })
+        .then((res) => res.json())
+        .then((data) => {
+          setAccounts(data);
+          setLoading(false);
+        });
+    };
+    if (localStorage.getItem('userid')) {
+      getAccounts();
+    }
   }, []);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearch = (bankacc) => {
+        // e.preventDefault();
     setLoading(true);
     setError(null);
 
-    fetch(`http://localhost:8080/api/v1/transactions/account/${fromBankAccNum}`, { cache: 'no-store' })
+    fetch(`http://localhost:8080/api/v1/transactions/account/${bankacc}`, { cache: 'no-store' })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -46,9 +67,31 @@ const Transactions = () => {
     <>
       {userid ? (
         <div className="container mx-auto p-4">
-          <h1 className="text-3xl font-bold tracking-tight my-4">Transaction History</h1>
-          <form onSubmit={handleSearch} className="mb-4">
-            <label className="block text-gray-700 mb-2">
+          <h1 className="text-3xl font-bold tracking-tight mt-4 mb-10">Transaction History</h1>
+          {/* <form onSubmit={handleSearch} className="mb-4"> */}
+          <div className="w-full flex flex-col justify-center items-center">
+          <label className="block text-gray-700 mb-2 text-xl font-semibold">
+              Choose Bank Account Number
+            </label>
+          <Select onValueChange={(val) => handleSearch(val)} className="flex justify-center items-center">
+            <SelectTrigger className="w-[400px]">
+              <SelectValue placeholder="Select an account" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Accounts</SelectLabel>
+                {accounts.map((account) => (
+                  <SelectItem key={account.bankAccNum} value={account.bankAccNum} >
+                    {account.bankAccNum}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          </div>
+
+
+            {/* <label className="block text-gray-700 mb-2">
               Enter Bank Account Number
             </label>
             <input
@@ -64,12 +107,12 @@ const Transactions = () => {
               className="bg-black text-white py-2 px-4 rounded-md hover:bg-zinc-800 transition duration-200"
             >
               Search
-            </button>
-          </form>
+            </button> */}
+          {/* </form> */}
           {loading && <div>Loading...</div>}
           {error && <div>Error: {error.message}</div>}
           {transactions.length > 0 && (
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto mt-8">
               <table className="min-w-full bg-white">
                 <thead>
                   <tr>

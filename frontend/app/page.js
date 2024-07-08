@@ -10,8 +10,7 @@ export default function Home() {
       <div className="flex justify-center items-center mt-24 ">
         <div className="text-center">
           <h1 className="text-5xl font-bold my-2">Welcome to</h1>
-          <h1 className="text-5xl font-bold my-2">Singapore Team 1</h1>
-          <h1 className="text-5xl font-bold my-2">Hackathon Project</h1>
+          <h1 className="text-6xl font-bold my-4 text-sky-400">OneCity</h1>
         </div>
       </div>
       <div className="flex justify-center items-center mt-20">

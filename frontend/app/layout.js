@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Singapore Team 1",
+  title: "OneCity",
   description: "We are in a Hackathon",
 };
 

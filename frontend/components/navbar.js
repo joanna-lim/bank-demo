@@ -33,7 +33,7 @@ const Navbar = () => {
               height={70}
               alt="Citi Logo"
             /> */}
-            <p>team name</p>
+            <p className="font-bold text-2xl text-sky-400">OneCity</p>
             </Link>
 
             <div className="flex items-center">
