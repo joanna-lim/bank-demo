@@ -57,7 +57,7 @@ const Navbar = () => {
               </Link>
               <Link
                 href="/transfer"
-                className="text-gray-800 text-sm font-semibold hover:text-purple-600"
+                className="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-6"
               >
                 Transfer Money
               </Link>

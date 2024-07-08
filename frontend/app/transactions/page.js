@@ -51,7 +51,7 @@ const Transactions = () => {
         return response.json();
       })
       .then((data) => {
-        setTransactions(data);
+        setTransactions(data.reverse());
         setLoading(false);
       })
       .catch((error) => {
