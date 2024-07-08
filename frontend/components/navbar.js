@@ -27,13 +27,13 @@ const Navbar = () => {
         <div className="mx-auto px-4">
           <div className="flex items-center justify-between py-4">
             <Link href="/account">
-            {/* <Image
-              src="/citi_logo.png"
-              width={70}
-              height={70}
-              alt="Citi Logo"
-            /> */}
-            <p className="font-bold text-2xl text-sky-400">OneCity</p>
+            <Image
+              src="/onecity.png"
+              width={100}
+              height={100}
+              alt="onecity Logo"
+            />
+            {/* <p className="font-bold text-2xl text-sky-400">OneCity</p> */}
             </Link>
 
             <div className="flex items-center">

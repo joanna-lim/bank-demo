@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { set } from "zod";
 
 const Transactions = () => {
   const [fromBankAccNum, setFromBankAccNum] = useState("");
@@ -38,6 +39,7 @@ const Transactions = () => {
 
   const handleSearch = (bankacc) => {
         // e.preventDefault();
+    setFromBankAccNum(bankacc);
     setLoading(true);
     setError(null);
 
@@ -71,9 +73,9 @@ const Transactions = () => {
           {/* <form onSubmit={handleSearch} className="mb-4"> */}
           <div className="w-full flex flex-col justify-center items-center">
           <label className="block text-gray-700 mb-2 text-xl font-semibold">
-              Choose Bank Account Number
+              Choose Bank Account Number {fromBankAccNum}
             </label>
-          <Select onValueChange={(val) => handleSearch(val)} className="flex justify-center items-center">
+          <Select onValueChange={(val) => {setFromBankAccNum(val);handleSearch(val)}} className="flex justify-center items-center">
             <SelectTrigger className="w-[400px]">
               <SelectValue placeholder="Select an account" />
             </SelectTrigger>
@@ -126,18 +128,18 @@ const Transactions = () => {
                     <tr key={transaction.transactionId} className="border-b">
                       <td className="py-2 px-4 text-left">{formatDate(transaction.datetime)}</td>
                       <td className="py-2 px-4 text-left">
-                        {transaction.fromBankAccNum.toString() === fromBankAccNum
+                        {transaction.fromBankAccNum.toString() == fromBankAccNum
                           ? "To: " + transaction.toBankAccNum
                           : "From: " + transaction.fromBankAccNum}
                       </td>
                       <td
                         className={`py-2 px-4 text-left ${
-                          transaction.fromBankAccNum.toString() === fromBankAccNum
+                          transaction.fromBankAccNum.toString() == fromBankAccNum
                             ? "text-red-500"
                             : "text-green-500"
                         }`}
                       >
-                        {transaction.fromBankAccNum.toString() === fromBankAccNum
+                        {transaction.fromBankAccNum.toString() == fromBankAccNum
                           ? "-"
                           : "+"}
                         ${Math.abs(transaction.amount).toFixed(2)}

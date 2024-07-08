@@ -42,6 +42,7 @@ const Transfer = () => {
       })
       .then((data) => {
         // Clear form fields after transfer
+        setFromBankAccNum("");
         recipientRef.current.value = "";
         amountRef.current.value = "";
         descriptionRef.current.value = "";
