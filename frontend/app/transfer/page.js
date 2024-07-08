@@ -113,7 +113,7 @@ const Transfer = () => {
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center text-center mt-52">
-          <p className="text-4xl font-semibold"> Please sign in to view account</p>
+          <p className="text-4xl font-semibold"> Please sign in to view your account</p>
           <Button asChild className="mx-2 w-2/5 text-2xl p-8 mt-6" size="lg">
             <Link href="/signin">Sign in</Link>
           </Button>
